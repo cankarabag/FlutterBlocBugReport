@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:issue_bloc/bloc/bloc.dart';
-import 'package:issue_bloc/bloc/event_example.dart';
 import 'package:issue_bloc/page/step_first.dart';
 import 'package:issue_bloc/page/step_second.dart';
 import 'package:issue_bloc/widget/custom_stepper_widget.dart';
@@ -66,33 +65,40 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: index == 0 ? Icon(Icons.menu) : Icon(Icons.arrow_back),
-          onPressed: leadingBtnTapped,
+    return BlocListener(
+      bloc: exampleBloc,
+      listener: (context, state) {
+        print(">> Step First, State $state");
+        if (state is ExampleStateStepSecond) {
+          stepContinue();
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            icon: index == 0 ? Icon(Icons.menu) : Icon(Icons.arrow_back),
+            onPressed: leadingBtnTapped,
+          ),
+          title: Text("Issue"),
         ),
-        title: Text("Issue"),
-      ),
-      body: CustomStepperWidget(
-        type: StepperType.horizontal,
-        currentStep: index,
-        steps: [
-          CustomStep(
-            title: Text("Step 1"),
-            activeIcon: Icon(Icons.settings),
-            passiveIcon: Icon(Icons.settings),
-            content: StepFirst(
-              onNextPressed: stepContinue,
+        body: CustomStepperWidget(
+          type: StepperType.horizontal,
+          currentStep: index,
+          steps: [
+            CustomStep(
+              title: Text("Step 1"),
+              activeIcon: Icon(Icons.settings),
+              passiveIcon: Icon(Icons.settings),
+              content: StepFirst(),
             ),
-          ),
-          CustomStep(
-            title: Text("Step 2"),
-            activeIcon: Icon(Icons.settings),
-            passiveIcon: Icon(Icons.settings),
-            content: StepSecond(),
-          ),
-        ],
+            CustomStep(
+              title: Text("Step 2"),
+              activeIcon: Icon(Icons.settings),
+              passiveIcon: Icon(Icons.settings),
+              content: StepSecond(),
+            ),
+          ],
+        ),
       ),
     );
   }

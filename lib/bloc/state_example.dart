@@ -1,5 +1,4 @@
-import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
+part of 'bloc.dart';
 
 abstract class ExampleState extends Equatable {
   ExampleState([List props = const []]) : super(props);
