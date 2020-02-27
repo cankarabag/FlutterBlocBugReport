@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+part of 'bloc.dart';
 
 abstract class ExampleEvent extends Equatable {
   @override

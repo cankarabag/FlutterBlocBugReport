@@ -1,10 +1,19 @@
 import 'package:bloc/bloc.dart';
-import 'package:issue_bloc/bloc/event_example.dart';
-import 'package:issue_bloc/bloc/state_example.dart';
+import 'package:equatable/equatable.dart';
+import 'package:meta/meta.dart';
+
+part 'event_example.dart';
+part 'state_example.dart';
 
 class BlocExample extends Bloc<ExampleEvent, ExampleState> {
   @override
   ExampleState get initialState => ExampleStateInitial();
+
+  @override
+  void onTransition(Transition<ExampleEvent, ExampleState> transition) {
+    super.onTransition(transition);
+    print(transition);
+  }
 
   @override
   Stream<ExampleState> mapEventToState(ExampleEvent event) async* {
